@@ -1,2 +1,5 @@
-/datasets/
-/.idea/
+/WeatherAPI/.venv/
+/WeatherAPI/.idea/
+/ImageDuplicates/.idea/
+/ImageDuplicates/.venv/
+/ImageDuplicates/datasets/
