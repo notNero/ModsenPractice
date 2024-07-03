@@ -1,6 +1,6 @@
 import os
 from PIL import Image
-import matplotlib.pyplot as plt
+import tkinter as tk
 from collections import defaultdict
 import imagehash
 
@@ -30,17 +30,52 @@ def find_duplicates(images):
     return duplicates
 
 
-def visualize_duplicates(duplicates):
-    for img_hash, filepaths in duplicates.items():
+class ImageBrowser(tk.Tk):
+    def __init__(self, duplicates):
+        super().__init__()
+        self.duplicates = list(duplicates.items())
+        self.index = 0
+        self.title("Duplicate Images")
+        self.geometry("1000x600")
+
+        # Create a canvas for displaying images
+        self.canvas = tk.Canvas(self, width=800, height=500)
+        self.canvas.pack()
+
+        # Create Next and Prev buttons
+        self.next_button = tk.Button(self, text="Next", command=self.next)
+        self.next_button.pack(side=tk.RIGHT)
+
+        self.prev_button = tk.Button(self, text="Prev", command=self.prev)
+        self.prev_button.pack(side=tk.LEFT)
+
+        self.show_images()
+
+    def show_images(self):
+        self.canvas.delete("all")
+        img_hash, filepaths = self.duplicates[self.index]
         print(f"Duplicate hash: {img_hash}")
         for filepath in filepaths:
             print(f" - {filepath}")
-        fig, axs = plt.subplots(1, len(filepaths), figsize=(15, 5))
-        for ax, filepath in zip(axs, filepaths):
-            img = Image.open(filepath)
-            ax.imshow(img)
-            ax.axis('off')
-        plt.show()
+
+        images = [Image.open(filepath) for filepath in filepaths[:2]]
+        images = [img.resize((400, 400), Image.LANCZOS) for img in images]
+        tk_images = [ImageTk.PhotoImage(img) for img in images]
+
+        x_offset = 50
+        for tk_img in tk_images:
+            self.canvas.create_image(x_offset, 50, anchor=tk.NW, image=tk_img)
+            x_offset += tk_img.width() + 50
+
+        self.images = tk_images
+
+    def next(self):
+        self.index = (self.index + 1) % len(self.duplicates)
+        self.show_images()
+
+    def prev(self):
+        self.index = (self.index - 1) % len(self.duplicates)
+        self.show_images()
 
 
 def main(folder1, folder2=None):
@@ -54,7 +89,8 @@ def main(folder1, folder2=None):
     duplicates = find_duplicates(images)
 
     if duplicates:
-        visualize_duplicates(duplicates)
+        app = ImageBrowser(duplicates)
+        app.mainloop()
     else:
         print("No duplicates found.")
 
