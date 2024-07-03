@@ -36,7 +36,7 @@ class ImageBrowser(tk.Tk):
         self.duplicates = list(duplicates.items())
         self.index = 0
         self.title("Duplicate Images")
-        self.geometry("1000x600")
+        self.geometry("1200x600")
 
         # Create a canvas for displaying images
         self.canvas = tk.Canvas(self, width=800, height=500)
@@ -59,7 +59,7 @@ class ImageBrowser(tk.Tk):
             print(f" - {filepath}")
 
         images = [Image.open(filepath) for filepath in filepaths[:2]]
-        images = [img.resize((400, 400), Image.LANCZOS) for img in images]
+        images = [img.resize((350, 350), Image.LANCZOS) for img in images]
         tk_images = [ImageTk.PhotoImage(img) for img in images]
 
         x_offset = 50
