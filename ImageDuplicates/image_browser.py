@@ -24,6 +24,9 @@ class ImageBrowser(tk.Tk):
         self.show_images()
 
     def show_images(self):
+        #Images size
+        img_width = 350
+        img_height = 350
         # Clear the canvas and display images
         self.canvas.delete("all")
         img_hash, filepaths = self.duplicates[self.index]
@@ -33,7 +36,7 @@ class ImageBrowser(tk.Tk):
 
         # Limit to two images for display and resize them to the same size
         images = [Image.open(filepath) for filepath in filepaths[:2]]
-        images = [img.resize((350, 350), Image.LANCZOS) for img in images]
+        images = [img.resize((img_width, img_height), Image.LANCZOS) for img in images]
         tk_images = [ImageTk.PhotoImage(img) for img in images]
 
         # Display the images side by side on the canvas
