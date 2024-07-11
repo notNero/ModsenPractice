@@ -1,3 +1,4 @@
+import argparse
 from loader import load_images_from_folder
 from duplicate_finder import find_duplicates
 from image_browser import ImageBrowser
@@ -23,7 +24,11 @@ def main(folder1, folder2=None):
 
 
 if __name__ == "__main__":
-    # Set folders to be checked for duplicates
-    folder1 = "Path to the first folder with images."
-    folder2 = None  # Optional second folder
-    main(folder1, folder2)
+    # Parse folders to be checked for duplicates
+    parser = argparse.ArgumentParser(description="Process some images.")
+    parser.add_argument('folder1', type=str, help="Path to the first folder with images")
+    parser.add_argument('--folder2', type=str, default=None, help="Path to the second folder with images (optional).")
+
+    args = parser.parse_args()
+
+    main(args.folder1, args.folder2)
