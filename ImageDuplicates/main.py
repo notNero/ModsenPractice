@@ -2,6 +2,13 @@ import argparse
 from loader import load_images_from_folder
 from duplicate_finder import find_duplicates
 from image_browser import ImageBrowser
+"""
+   Main function to load images, find duplicates, and display them.
+
+   Parameters:
+       folder1 (str): Path to the first folder containing images.
+       folder2 (str, optional): Path to the second folder containing images. Defaults to None.
+   """
 
 
 def main(folder1, folder2=None):

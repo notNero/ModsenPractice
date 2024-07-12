@@ -1,5 +1,14 @@
 import os
 from PIL import Image
+"""
+    Load images from the specified folder.
+
+    Args:
+        folder (str): Path to the folder containing images.
+
+    Returns:
+        list: A list of tuples containing the file path and the loaded image object.
+    """
 
 
 def load_images_from_folder(folder):

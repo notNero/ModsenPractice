@@ -1,9 +1,25 @@
 import tkinter as tk
 from PIL import Image, ImageTk
+"""
+  A class to visualize duplicate images using a Tkinter interface.
+
+  Attributes:
+      duplicates (list): A list of tuples containing image hashes and lists of file paths.
+      index (int): The current index of the duplicate set being displayed.
+      canvas (tk.Canvas): The canvas widget for displaying images.
+      next_button (tk.Button): The button to display the next set of duplicates.
+      prev_button (tk.Button): The button to display the previous set of duplicates.
+  """
 
 
 class ImageBrowser(tk.Tk):
     def __init__(self, duplicates):
+        """
+              Initialize the ImageBrowser.
+
+              Args:
+                  duplicates (dict): A dictionary of duplicate images where keys are image hashes and values are lists of file paths.
+        """
         super().__init__()
         self.duplicates = list(duplicates.items())
         self.index = 0
@@ -24,7 +40,10 @@ class ImageBrowser(tk.Tk):
         self.show_images()
 
     def show_images(self):
-        #Images size
+        """
+               Display the current set of duplicate images.
+        """
+        # Images size
         img_width = 350
         img_height = 350
         # Clear the canvas and display images
@@ -49,11 +68,17 @@ class ImageBrowser(tk.Tk):
         self.images = tk_images
 
     def next(self):
+        """
+                Move to the next set of duplicates.
+        """
         # Move to the next set of duplicates
         self.index = (self.index + 1) % len(self.duplicates)
         self.show_images()
 
     def prev(self):
+        """
+                Move to the previous set of duplicates.
+        """
         # Move to the previous set of duplicates
         self.index = (self.index - 1) % len(self.duplicates)
         self.show_images()

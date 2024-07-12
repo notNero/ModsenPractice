@@ -1,5 +1,14 @@
 from collections import defaultdict
 from hasher import compute_image_hash
+"""
+    Find duplicate images based on their hashes.
+
+    Args:
+        images (list): A list of tuples containing file paths and image objects.
+
+    Returns:
+        dict: A dictionary where keys are image hashes and values are lists of file paths of duplicate images.
+    """
 
 
 def find_duplicates(images):
